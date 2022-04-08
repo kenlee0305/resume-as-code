@@ -186,8 +186,8 @@ Ligatures={TeX, NoCommon, NoDiscretionary}]{\mainfontface}
 \makeatletter
 \newcommand\makeheader{
   \begin{center}
-    \begin{tabu} to 1\textwidth { X[l,m] X[2,c,m] X[r,m] }
-      \printaddress & \printname & \printcontacts \\
+    \begin{tabu} to 1\textwidth { X[2,c,m] X[r,m] }
+      \printname & \printcontacts \\
     \end{tabu}
   \end{center}
   \vspace*{\afterheaderspace}
