@@ -22,6 +22,7 @@ jobs:
         with:
           root_file: |
             resume.tex
+          latexmk_use_lualatex: true
           args: |
             -pdf -interaction=nonstopmode -halt-on-error -jobname=Lee-Ka-Chun_Resume
 
@@ -29,7 +30,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}s
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
