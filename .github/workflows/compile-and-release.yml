@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install TimesNewRoman font
-        run: sudo apt-get install ttf-mscorefonts-installer
+        run: sudo apt-get --reinstall install ttf-mscorefonts-installer
 
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
