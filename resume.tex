@@ -1,0 +1,119 @@
+%% The MIT License (MIT)
+%%
+%% Copyright (c) 2015 Daniil Belyakov
+%%
+%% Permission is hereby granted, free of charge, to any person obtaining a copy
+%% of this software and associated documentation files (the "Software"), to deal
+%% in the Software without restriction, including without limitation the rights
+%% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+%% copies of the Software, and to permit persons to whom the Software is
+%% furnished to do so, subject to the following conditions:
+%%
+%% The above copyright notice and this permission notice shall be included in all
+%% copies or substantial portions of the Software.
+%%
+%% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+%% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+%% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+%% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+%% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+%% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+%% SOFTWARE.
+
+% The font could be set to Windows-specific Calibri by using the 'calibri' option
+\documentclass[]{resume}
+
+% For mathematical symbols
+\usepackage{amsmath}
+
+% Set applicant's personal data for header
+\name{Lee Ka Chun, Ken}
+%\address{123 Spruce St, Apt 35 \linebreak Philadelphia PA 19103}
+\contacts{(852) 5598 1020 \linebreak leekachun5a16@gmail.com}
+
+\begin{document}
+
+	% Print the header
+	\makeheader
+	
+	% Print the content
+	\begin{cvsection}{EMPLOYMENT}
+		\begin{cvsubsection}{Software Engineer}{VTech Telecommunications Ltd.}{Aug 2021 -- Current}
+			\begin{itemize}
+				\item Reduced running time by \textbf{75\%} by code refactoring in AWS Lambda function (Java)
+				\item Developed AWS Lambda functions (Python) to process pre-provisioning checking of IoT devices, maintaining system security
+				\item Built up CloudFormation templates and shell scripting to automate cloud infrastructure creation, improving operational efficiency
+				\item Handled and updated data stored in NoSQL database by using AWS Lambda function (Python)
+				\item  Set up AWS CloudWatch metric alarms to monitor system healthiness, enabling smooth operation
+			\end{itemize}
+		\end{cvsubsection}
+		
+		\begin{cvsubsection}{Survey Officer (Quantity)}{Architectural Services Dept.}{May 2019 -- Jan 2021}	
+			\begin{itemize}
+				\item Reduced time to produce financial statements by over \textbf{85\%} by building relational formulas between cells to automate the computations in Excel
+			\end{itemize}
+		\end{cvsubsection}
+		
+		\begin{cvsubsection}{Quantity Surveying Graduate}{Architectural Services Dept.}{Aug 2015 -- Aug 2017}		
+			\begin{itemize}
+				\item Collaborated closely with different construction professionals to facilitate local public projects
+			\end{itemize}
+		\end{cvsubsection}
+	\end{cvsection}
+	
+	\begin{cvsection}{PROJECTS}
+		\begin{cvsubsection}{Trash image classifier}{}{}
+			\begin{itemize}
+			    \item A 8-layer Convolutional Neural Network machine learning sequence model implemented Adam optimizer and Relu activation function to predict whether a trash on images is made of paper, metal, plastic, or none of the above. 
+			    \item Increased the prediction accuracy from \textbf{55\%} to \textbf{75\%} by improving prediction algorithm
+			    \item Developed with Python and TensorFlow 
+			\end{itemize}
+		\end{cvsubsection}
+	\end{cvsection}
+	
+	\begin{cvsection}{EDUCATION}
+		\begin{cvsubsection}{Tecky Academy}{Hong Kong}{Feb 2021 -- Jun 2021}
+			\begin{itemize}
+				\item MicroMaster in A.I. \& Programming
+			\end{itemize}
+		\end{cvsubsection}
+		
+		\begin{cvsubsection}{City University of Hong Kong}{Hong Kong}{Sep 2012 -- Jul 2015}
+			\begin{itemize}
+				\item Bachelor of Science (Hons) in Surveying
+			\end{itemize}
+		\end{cvsubsection}
+	\end{cvsection}
+	
+	\begin{cvsection}{CERTIFICATES}
+		\begin{cvsubsection}{}{}{}
+		    \begin{itemize}
+                \item \noindent \rlap {AWS Certified Solutions Architect} \hfill {Amazon} \hfill \llap{Jan 2022 -- Jan 2025}
+                \newline \noindent \rlap{- Associate} \hfill {} \hfill \llap{}
+		        \item \noindent \rlap{Using Databases with Python} \hfill {University of Michigan, Coursera}\hfill \llap{Nov 2020}
+		        \item \noindent \rlap{Using Python to Access Web Data} \hfill {University of Michigan, Coursera}\hfill \llap{Oct 2020}
+		        \item \noindent \rlap{Python Data Structures} \hfill {University of Michigan, Coursera}\hfill \llap{Sep 2020}
+		        \item \noindent \rlap{MHKIS} \hfill {The Hong Kong Institute of Surveyors}\hfill \llap{Mar 2018}
+		    \end{itemize}
+		\end{cvsubsection}
+	\end{cvsection}
+	
+	\begin{cvsection}{TECHNOLOGIES}
+		\begin{cvsubsection}{}{}{}	
+			\begin{itemize}
+				\item Python, SQL, JavaScript, TypeScript, HTML, CSS 
+				\item Amazon Web Services, Git, MacOS, Visual Studio Code, GitHub, Shell Scripting
+			\end{itemize}
+		\end{cvsubsection}
+	\end{cvsection}
+	
+	\begin{cvsection}{LANGUAGES}
+		\begin{cvsubsection}{}{}{}	
+			\begin{itemize}
+				\item Proficient in written and spoken: English, Chinese 
+			\end{itemize}
+		\end{cvsubsection}
+	\end{cvsection}
+	
+\end{document}
+
