@@ -144,16 +144,16 @@ Ligatures={TeX, NoCommon, NoDiscretionary}]{\mainfontface}
 %--------------------------------------------------------------------------------
 
 % Address
-%\makeatletter
+\makeatletter
 
-%\newcommand\address[1]{\def\@address{#1}}
-%\address{}
+\newcommand\address[1]{\def\@address{#1}}
+\address{}
 
-%\newcommand\printaddress{
-%  \small{\@address}
-%}
+\newcommand\printaddress{
+  \small{\@address}
+}
 
-%\makeatother
+\makeatother
 
 % Name
 \makeatletter
@@ -186,8 +186,8 @@ Ligatures={TeX, NoCommon, NoDiscretionary}]{\mainfontface}
 \makeatletter
 \newcommand\makeheader{
   \begin{center}
-    \begin{tabu} to 1\textwidth { X[2,c,m] X[r,m] }
-      \printname & \printcontacts \\
+    \begin{tabu} to 1\textwidth { X[l,m] X[2,c,m] X[r,m] }
+      \printaddress & \printname & \printcontacts \\
     \end{tabu}
   \end{center}
   \vspace*{\afterheaderspace}
