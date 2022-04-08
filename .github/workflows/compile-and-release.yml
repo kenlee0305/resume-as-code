@@ -17,9 +17,6 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
 
-      - name: Install TimesNewRoman font
-        run: sudo apt-get --reinstall install ttf-mscorefonts-installer
-
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
@@ -38,7 +35,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}s
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
