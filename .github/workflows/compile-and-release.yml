@@ -25,7 +25,7 @@ jobs:
         with:
           root_file: |
             resume.tex
-          latexmk_use_xelatex: true
+          latexmk_use_lualatex: true
           args: |
             -pdf -interaction=nonstopmode -halt-on-error -jobname=Lee-Ka-Chun_Resume
 
