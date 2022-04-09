@@ -8,6 +8,6 @@ http://www.careercup.com/resume
 <img src="https://github.com/kenlee0305/resume/blob/main/Lee-Ka-Chun_Resume.png" width="600px"/>
 
 ## To-do
-- [ ] Compile LaTeX into png using GitHub Actions
-- [ ] Create legacy png
-- [ ] Push compiled png to GitHub
+- [X] Compile LaTeX into png using GitHub Actions
+- [X] Create legacy png
+- [X] Push compiled png to GitHub
