@@ -13,6 +13,8 @@ on:
 jobs:
   build_latex:
     runs-on: ubuntu-latest
+    container:
+      image: agflow/poppler
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
@@ -68,10 +70,6 @@ jobs:
           asset_path: ./Lee-Ka-Chun_Resume.pdf
           asset_name: Lee-Ka-Chun_Resume.pdf
           asset_content_type: pdf
-
-      - name: Install poppler
-        run: |
-          brew install poppler
 
       - name: Convert pdf into png
         run: |
