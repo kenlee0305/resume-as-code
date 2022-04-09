@@ -41,6 +41,7 @@ jobs:
             git add Lee-Ka-Chun_Resume.pdf
             git add ./legacy/**
             git commit -m "Update resume"
+            git pull
             git push
 
       - name: Set tag name
@@ -85,5 +86,6 @@ jobs:
             git add Lee-Ka-Chun_Resume.png
             git add ./legacy/**
             git commit -m "Update png"
+            git pull
             git push
       
