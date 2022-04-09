@@ -9,3 +9,5 @@ http://www.careercup.com/resume
 - [X] Compile LaTeX into png using GitHub Actions
 - [X] Create legacy png
 - [X] Push compiled png to GitHub
+- [ ] Caching in GitHub Actions 
+- [ ] Separate steps into parallel jobs if possible
