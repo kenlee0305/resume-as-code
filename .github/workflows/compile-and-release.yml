@@ -30,6 +30,22 @@ jobs:
               fc-cache -f
           args: |
             -pdf -interaction=nonstopmode -halt-on-error -jobname=Lee-Ka-Chun_Resume
+            
+      - name: Create legacy pdf
+        run: cp Lee-Ka-Chun_Resume.pdf "./legacy/Lee-Ka-Chun_Resume_$(date +%b)_$(date +%Y).pdf"
+      
+      - name: Commit and push compiled pdf
+        run: |
+            git config --global user.name 'Ken Lee'
+            git config --global user.email 'leekachun5a16@gmail.com'
+            git add Lee-Ka-Chun_Resume.pdf
+            git add ./legacy/**
+            git commit -m "Update resume"
+            git push
+
+      - name: Set tag name
+        id: tag_name
+        run: echo "::set-output name=tag_name::$(date +'%Y.%m.%d.%H.%M.%S')"
 
       - name: Create Release
         id: create_release
@@ -37,8 +53,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
+          tag_name: ${{ steps.tag_name.outputs.tag_name }}
+          release_name: Release ${{ steps.date.outputs.date }}
           draft: false
           prerelease: false
 
