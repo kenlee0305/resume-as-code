@@ -35,6 +35,9 @@ jobs:
             
       - name: Create legacy pdf
         run: cp Lee-Ka-Chun_Resume.pdf "./legacy/Lee-Ka-Chun_Resume_$(date +%b)_$(date +%Y).pdf"
+
+      - name: Create legacy pdf
+        run: brew install git   
       
       - name: Commit and push compiled pdf
         run: |
