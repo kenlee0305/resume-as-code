@@ -69,23 +69,4 @@ jobs:
           asset_path: ./Lee-Ka-Chun_Resume.pdf
           asset_name: Lee-Ka-Chun_Resume.pdf
           asset_content_type: pdf
-
-      - name: Install poppler
-        run: |
-          brew install poppler
-
-      - name: Convert pdf into png
-        run: |
-          pdftoppm -png Lee-Ka-Chun_Resume.pdf > Lee-Ka-Chun_Resume.png     
-
-      - name: Create legacy png
-        run: cp Lee-Ka-Chun_Resume.png "./legacy/Lee-Ka-Chun_Resume_$(date +%b)_$(date +%Y).png"
-
-      - name: Commit and push converted png
-        run: |
-            git add Lee-Ka-Chun_Resume.png
-            git add ./legacy/**
-            git commit -m "Update png"
-            git pull
-            git push
       
