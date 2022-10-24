@@ -11,3 +11,4 @@ http://www.careercup.com/resume
 - [X] Push compiled png to GitHub
 - [ ] dockerize
 - [ ] automated versioning
+- [ ] optimise .github workflow
