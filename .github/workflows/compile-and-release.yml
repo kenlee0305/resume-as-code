@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Create legacy pdf
-        run: cp Lee-Ka-Chun_Resume.pdf "./legacy/Lee-Ka-Chun_Resume_$(date +%b)_$(date +%Y).pdf"
+        run: cp Lee-Ka-Chun_Resume.pdf "./legacy/Lee-Ka-Chun_Resume_$(date +%d)_$(date +%m)_$(date +%Y).pdf"
 
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
@@ -55,7 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.tag_name.outputs.tag_name }}
-          release_name: Release ${{ steps.date.outputs.date }}
+          release_name: Release $(date +'%Y.%m.%d')
           draft: false
           prerelease: false
 
