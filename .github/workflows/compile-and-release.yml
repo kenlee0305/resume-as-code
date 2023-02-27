@@ -21,7 +21,8 @@ jobs:
         run: cp Lee-Ka-Chun_Resume.pdf "./legacy/Lee-Ka-Chun_Resume_$(date +%d)_$(date +%m)_$(date +%Y).pdf"
 
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2.7.1
+        uses: xu-cheng/latex-action@v2
+
         with:
           root_file: |
             resume.tex
