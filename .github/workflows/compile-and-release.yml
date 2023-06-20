@@ -1,4 +1,4 @@
-name: Compile Latex and Release PDF
+name: Compile LaTeX and Release PDF
 
 on:
   push:
@@ -15,6 +15,9 @@ jobs:
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
+
+      - name: Install poppler-utils
+        run: sudo apt-get install -y poppler-utils
 
       - name: Create legacy PDF
         run: cp Lee-Ka-Chun_Resume.pdf "./legacy/Lee-Ka-Chun_Resume_$(date +%d)_$(date +%m)_$(date +%Y).pdf"
