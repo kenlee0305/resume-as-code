@@ -19,6 +19,14 @@ jobs:
         run: |
           sudo apt-get install -y texlive-xetex texlive-fonts-recommended
 
+      - name: Install Times New Roman font
+        run: |
+          mkdir -p ~/.fonts
+          curl -L -o ~/.fonts/times.ttf "https://github.com/borisveytsman/texfonts/blob/master/fonts/ps-type1/times/times.ttf?raw=true"
+
+      - name: Refresh font cache
+        run: fc-cache -f -v
+
       - name: Compile LaTeX document
         run: |
           xelatex -halt-on-error -jobname=Lee-Ka-Chun_Resume resume.tex
