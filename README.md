@@ -9,6 +9,5 @@ http://www.careercup.com/resume
 - [X] Compile LaTeX into png using GitHub Actions
 - [X] Create legacy png
 - [X] Push compiled png to GitHub
-- [ ] dockerize
-- [ ] automated versioning
-- [ ] optimise .github workflow
+- [X] automated versioning
+- [] optimise .github workflow
