@@ -10,4 +10,4 @@ http://www.careercup.com/resume
 - [X] Create legacy png
 - [X] Push compiled png to GitHub
 - [X] automated versioning
-- [] optimise .github workflow
+- [ ] optimise .github workflow
