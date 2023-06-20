@@ -37,7 +37,7 @@ jobs:
             -pdf -interaction=nonstopmode -halt-on-error -jobname=Lee-Ka-Chun_Resume
 
       - name: Convert PDF to PNG
-        run: pdftoppm -png -singlefile Lee-Ka-Chun_Resume.pdf Lee-Ka-Chun_Resume
+        run: pdftoppm -png -singlefile Lee-Ka-Chun_Resume.pdf Lee-Ka-Chun_Resume-1
 
       - name: Remove old PNG file
         run: rm Lee-Ka-Chun_Resume.png
