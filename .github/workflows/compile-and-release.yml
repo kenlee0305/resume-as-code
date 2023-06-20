@@ -1,5 +1,4 @@
-
-name: Compile Latex and Release PDF  
+name: Compile LaTeX and Release PDF
 
 on:
   push:
@@ -8,46 +7,34 @@ on:
     paths:
       - resume.tex
       - resume.cls
-  pull_request:
-    
+
 jobs:
   build_latex:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
-        
-      - name: Create legacy pdf
-        run: cp Lee-Ka-Chun_Resume.pdf "./legacy/Lee-Ka-Chun_Resume_$(date +%d)_$(date +%m)_$(date +%Y).pdf"
+
+      - name: Install LaTeX dependencies
+        run: |
+          sudo apt-get install -y texlive-latex-extra texlive-fonts-recommended
 
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
-
-        with:
-          root_file: |
-            resume.tex
-          latexmk_use_xelatex: true
-          latexmk_shell_escape: true
-          pre_compile: |
-              apk add msttcorefonts-installer fontconfig
-              update-ms-fonts
-              fc-cache -f
-          args: |
-            -pdf -interaction=nonstopmode -halt-on-error -jobname=Lee-Ka-Chun_Resume
-      
-      - name: Commit and push compiled pdf
         run: |
-            git config --global user.name 'Ken Lee'
-            git config --global user.email 'leekachun5a16@gmail.com'
-            git add Lee-Ka-Chun_Resume.pdf
-            git add ./legacy/**
-            git commit -m "Update resume"
-            git pull
-            git push
+          xelatex -halt-on-error -jobname=Lee-Ka-Chun_Resume resume.tex
 
-      - name: Set tag name
-        id: tag_name
-        run: echo "::set-output name=tag_name::$(date +'%Y.%m.%d.%H.%M.%S')"
+      - name: Create legacy PDF
+        run: |
+          mkdir -p legacy
+          cp Lee-Ka-Chun_Resume.pdf "./legacy/Lee-Ka-Chun_Resume_$(date +'%d_%m_%Y').pdf"
+
+      - name: Commit and push compiled PDF
+        run: |
+          git config --local user.name 'Ken Lee'
+          git config --local user.email 'leekachun5a16@gmail.com'
+          git add Lee-Ka-Chun_Resume.pdf ./legacy/**
+          git commit -m "Update resume"
+          git push
 
       - name: Create Release
         id: create_release
@@ -55,19 +42,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.tag_name.outputs.tag_name }}
+          tag_name: ${{ github.sha }}
           release_name: Release $(date +'%Y.%m.%d')
           draft: false
           prerelease: false
 
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} 
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./Lee-Ka-Chun_Resume.pdf
           asset_name: Lee-Ka-Chun_Resume.pdf
-          asset_content_type: pdf
-      
+          asset_content_type: application/pdf
