@@ -12,18 +12,13 @@ on:
 jobs:
   build_latex:
     runs-on: ubuntu-latest
+
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
 
-      - name: Install poppler-utils
-        run: sudo apt-get install -y poppler-utils
-
-      - name: Create legacy PDF
-        run: cp Lee-Ka-Chun_Resume.pdf "./legacy/Lee-Ka-Chun_Resume_$(date +%d)_$(date +%m)_$(date +%Y).pdf"
-
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v2.3
         with:
           root_file: resume.tex
           latexmk_use_xelatex: true
@@ -35,12 +30,11 @@ jobs:
           args: -pdf -interaction=nonstopmode -halt-on-error -jobname=Lee-Ka-Chun_Resume
 
       - name: Convert PDF to PNG
-        run: pdftoppm -png -singlefile Lee-Ka-Chun_Resume.pdf Lee-Ka-Chun_Resume-1
-
-      - name: Rename and remove PNG file
-        run: |
-          rm Lee-Ka-Chun_Resume.png
-          mv Lee-Ka-Chun_Resume-1.png Lee-Ka-Chun_Resume.png
+        uses: dawidd6/action-pdf2png@v2
+        with:
+          pdf_path: Lee-Ka-Chun_Resume.pdf
+          output_name: Lee-Ka-Chun_Resume.png
+          resolution: 300
 
       - name: Configure Git
         run: |
@@ -49,7 +43,7 @@ jobs:
 
       - name: Commit and push compiled files
         run: |
-          git add Lee-Ka-Chun_Resume.pdf Lee-Ka-Chun_Resume.png ./legacy/**
+          git add Lee-Ka-Chun_Resume.pdf Lee-Ka-Chun_Resume.png
           git commit -m "Update resume"
           git push
 
