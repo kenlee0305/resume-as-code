@@ -8,41 +8,48 @@ on:
       - resume.tex
       - resume.cls
   pull_request:
-    
+
 jobs:
   build_latex:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
-        
-      - name: Create legacy pdf
+
+      - name: Create legacy PDF
         run: cp Lee-Ka-Chun_Resume.pdf "./legacy/Lee-Ka-Chun_Resume_$(date +%d)_$(date +%m)_$(date +%Y).pdf"
 
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
-
         with:
           root_file: |
             resume.tex
           latexmk_use_xelatex: true
           latexmk_shell_escape: true
           pre_compile: |
-              apk add msttcorefonts-installer fontconfig
-              update-ms-fonts
-              fc-cache -f
+            apk add msttcorefonts-installer fontconfig
+            update-ms-fonts
+            fc-cache -f
           args: |
             -pdf -interaction=nonstopmode -halt-on-error -jobname=Lee-Ka-Chun_Resume
-      
-      - name: Commit and push compiled pdf
+
+      - name: Convert PDF to PNG
+        run: pdftoppm -png -singlefile Lee-Ka-Chun_Resume.pdf Lee-Ka-Chun_Resume
+
+      - name: Remove old PNG file
+        run: rm Lee-Ka-Chun_Resume.png
+
+      - name: Rename PNG file
+        run: mv Lee-Ka-Chun_Resume-1.png Lee-Ka-Chun_Resume.png
+
+      - name: Commit and push compiled files
         run: |
-            git config --global user.name 'Ken Lee'
-            git config --global user.email 'leekachun5a16@gmail.com'
-            git add Lee-Ka-Chun_Resume.pdf
-            git add ./legacy/**
-            git commit -m "Update resume"
-            git pull
-            git push
+          git config --global user.name 'Ken Lee'
+          git config --global user.email 'leekachun5a16@gmail.com'
+          git add Lee-Ka-Chun_Resume.pdf Lee-Ka-Chun_Resume.png ./legacy/**
+          git commit -m "Update resume"
+          git pull
+          git push
 
       - name: Set tag name
         id: tag_name
@@ -59,13 +66,19 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset
-        id: upload-release-asset 
+      - name: Upload Release Assets
+        id: upload-release-assets
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} 
-          asset_path: ./Lee-Ka-Chun_Resume.pdf
-          asset_name: Lee-Ka-Chun_Resume.pdf
-          asset_content_type: pdf
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: |
+            ./Lee-Ka-Chun_Resume.pdf
+            ./Lee-Ka-Chun_Resume.png
+          asset_name: |
+            Lee-Ka-Chun_Resume.pdf
+            Lee-Ka-Chun_Resume.png
+          asset_content_type: |
+            application/pdf
+            image/png
