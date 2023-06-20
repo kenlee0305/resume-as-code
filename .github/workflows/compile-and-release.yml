@@ -71,12 +71,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: |
-            ./Lee-Ka-Chun_Resume.pdf
-            ./Lee-Ka-Chun_Resume.png
-          asset_name: |
-            Lee-Ka-Chun_Resume.pdf
-            Lee-Ka-Chun_Resume.png
-          asset_content_type: |
-            application/pdf
-            image/png
+          asset_path: ./Lee-Ka-Chun_Resume.pdf
+          asset_name: Lee-Ka-Chun_Resume.pdf
+          asset_content_type: pdf
