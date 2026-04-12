@@ -38,15 +38,13 @@ jobs:
           root_file: resume.tex
           latexmk_use_xelatex: true
           latexmk_shell_escape: true
-          pre_compile: |
-            tlmgr update --self
-            tlmgr install fontspec
           extra_system_packages: |
             msttcorefonts-installer
             fontconfig
-          post_compile: |
+          pre_compile: |
             update-ms-fonts
-            fc-cache -f
+            fc-cache -fv
+          args: -pdf -interaction=nonstopmode -halt-on-error -jobname=Lee-Ka-Chun_Resume
 
       - name: Convert PDF to PNG
         run: pdftoppm -png -singlefile -r 300 Lee-Ka-Chun_Resume.pdf Lee-Ka-Chun_Resume-1
