@@ -12,34 +12,50 @@ on:
 jobs:
   build_latex:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install poppler-utils
-        run: sudo apt-get install -y poppler-utils
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
 
-      - name: Create legacy PDF
-        run: cp Lee-Ka-Chun_Resume.pdf "./legacy/Lee-Ka-Chun_Resume_$(date +%d)_$(date +%m)_$(date +%Y).pdf"
+      - name: Create legacy directory
+        run: mkdir -p legacy
+
+      - name: Create legacy PDF (if exists)
+        run: |
+          if [ -f Lee-Ka-Chun_Resume.pdf ]; then
+            cp Lee-Ka-Chun_Resume.pdf "./legacy/Lee-Ka-Chun_Resume_$(date +%d)_$(date +%m)_$(date +%Y).pdf"
+          fi
 
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v3
         with:
           root_file: resume.tex
           latexmk_use_xelatex: true
           latexmk_shell_escape: true
           pre_compile: |
-            apk add msttcorefonts-installer fontconfig
+            tlmgr update --self
+            tlmgr install fontspec
+          extra_system_packages: |
+            msttcorefonts-installer
+            fontconfig
+          post_compile: |
             update-ms-fonts
             fc-cache -f
-          args: -pdf -interaction=nonstopmode -halt-on-error -jobname=Lee-Ka-Chun_Resume
 
       - name: Convert PDF to PNG
-        run: pdftoppm -png -singlefile Lee-Ka-Chun_Resume.pdf Lee-Ka-Chun_Resume-1
+        run: pdftoppm -png -singlefile -r 300 Lee-Ka-Chun_Resume.pdf Lee-Ka-Chun_Resume-1
 
-      - name: Rename and remove PNG file
+      - name: Rename PNG file
         run: |
-          rm Lee-Ka-Chun_Resume.png
+          if [ -f Lee-Ka-Chun_Resume.png ]; then
+            rm Lee-Ka-Chun_Resume.png
+          fi
           mv Lee-Ka-Chun_Resume-1.png Lee-Ka-Chun_Resume.png
 
       - name: Configure Git
@@ -49,28 +65,23 @@ jobs:
 
       - name: Commit and push compiled files
         run: |
-          git add Lee-Ka-Chun_Resume.pdf Lee-Ka-Chun_Resume.png ./legacy/**
-          git commit -m "Update resume"
-          git push
+          git add Lee-Ka-Chun_Resume.pdf Lee-Ka-Chun_Resume.png
+          git add legacy/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update resume [skip ci]"
+            git push
+          fi
 
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+        if: success()
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
+          tag_name: v${{ github.run_number }}
+          name: Release ${{ github.run_number }}
           draft: false
           prerelease: false
-
-      - name: Upload Release Assets
-        id: upload-release-assets
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Lee-Ka-Chun_Resume.pdf
-          asset_name: Lee-Ka-Chun_Resume.pdf
-          asset_content_type: pdf
+          files: Lee-Ka-Chun_Resume.pdf
